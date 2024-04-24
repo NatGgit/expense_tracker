@@ -1,4 +1,5 @@
 import 'package:expense_tracker_app/bloc/expense_bloc.dart';
+import 'package:expense_tracker_app/bloc/add_expense_cubit.dart';
 import 'package:expense_tracker_app/expenses_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,8 +13,11 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ExpenseBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => ExpenseBloc()),
+        BlocProvider(create: (context) => AddExpenseCubit()),
+      ],
       child: const MaterialApp(
         home: ExpensesScreen(),
       ),
