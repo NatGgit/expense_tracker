@@ -19,6 +19,12 @@ class ExpenseBloc extends Bloc<ExpenseEvent, ExpenseState> {
 
       emit(ExpenseState(expenses: expenses));
     });
+    on<InsertExpenseEvent>((event, emit) {
+      final expenses = List<Expense>.from(state.expenses);
+      expenses.insert(event.index, event.expense);
+
+      emit(ExpenseState(expenses: expenses));
+    });
   }
 }
 
@@ -34,4 +40,6 @@ class ExpenseEvent with _$ExpenseEvent {
       AddExpenseEvent;
   const factory ExpenseEvent.deleteExpense({required Expense expense}) =
       DeleteExpenseEvent;
+  const factory ExpenseEvent.insertExpense(
+      {required Expense expense, required int index}) = InsertExpenseEvent;
 }

@@ -146,18 +146,21 @@ mixin _$ExpenseEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(Expense expense) addExpense,
     required TResult Function(Expense expense) deleteExpense,
+    required TResult Function(Expense expense, int index) insertExpense,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(Expense expense)? addExpense,
     TResult? Function(Expense expense)? deleteExpense,
+    TResult? Function(Expense expense, int index)? insertExpense,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Expense expense)? addExpense,
     TResult Function(Expense expense)? deleteExpense,
+    TResult Function(Expense expense, int index)? insertExpense,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -165,18 +168,21 @@ mixin _$ExpenseEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(AddExpenseEvent value) addExpense,
     required TResult Function(DeleteExpenseEvent value) deleteExpense,
+    required TResult Function(InsertExpenseEvent value) insertExpense,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AddExpenseEvent value)? addExpense,
     TResult? Function(DeleteExpenseEvent value)? deleteExpense,
+    TResult? Function(InsertExpenseEvent value)? insertExpense,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AddExpenseEvent value)? addExpense,
     TResult Function(DeleteExpenseEvent value)? deleteExpense,
+    TResult Function(InsertExpenseEvent value)? insertExpense,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -288,6 +294,7 @@ class _$AddExpenseEventImpl implements AddExpenseEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(Expense expense) addExpense,
     required TResult Function(Expense expense) deleteExpense,
+    required TResult Function(Expense expense, int index) insertExpense,
   }) {
     return addExpense(expense);
   }
@@ -297,6 +304,7 @@ class _$AddExpenseEventImpl implements AddExpenseEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(Expense expense)? addExpense,
     TResult? Function(Expense expense)? deleteExpense,
+    TResult? Function(Expense expense, int index)? insertExpense,
   }) {
     return addExpense?.call(expense);
   }
@@ -306,6 +314,7 @@ class _$AddExpenseEventImpl implements AddExpenseEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Expense expense)? addExpense,
     TResult Function(Expense expense)? deleteExpense,
+    TResult Function(Expense expense, int index)? insertExpense,
     required TResult orElse(),
   }) {
     if (addExpense != null) {
@@ -319,6 +328,7 @@ class _$AddExpenseEventImpl implements AddExpenseEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(AddExpenseEvent value) addExpense,
     required TResult Function(DeleteExpenseEvent value) deleteExpense,
+    required TResult Function(InsertExpenseEvent value) insertExpense,
   }) {
     return addExpense(this);
   }
@@ -328,6 +338,7 @@ class _$AddExpenseEventImpl implements AddExpenseEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AddExpenseEvent value)? addExpense,
     TResult? Function(DeleteExpenseEvent value)? deleteExpense,
+    TResult? Function(InsertExpenseEvent value)? insertExpense,
   }) {
     return addExpense?.call(this);
   }
@@ -337,6 +348,7 @@ class _$AddExpenseEventImpl implements AddExpenseEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AddExpenseEvent value)? addExpense,
     TResult Function(DeleteExpenseEvent value)? deleteExpense,
+    TResult Function(InsertExpenseEvent value)? insertExpense,
     required TResult orElse(),
   }) {
     if (addExpense != null) {
@@ -427,6 +439,7 @@ class _$DeleteExpenseEventImpl implements DeleteExpenseEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(Expense expense) addExpense,
     required TResult Function(Expense expense) deleteExpense,
+    required TResult Function(Expense expense, int index) insertExpense,
   }) {
     return deleteExpense(expense);
   }
@@ -436,6 +449,7 @@ class _$DeleteExpenseEventImpl implements DeleteExpenseEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(Expense expense)? addExpense,
     TResult? Function(Expense expense)? deleteExpense,
+    TResult? Function(Expense expense, int index)? insertExpense,
   }) {
     return deleteExpense?.call(expense);
   }
@@ -445,6 +459,7 @@ class _$DeleteExpenseEventImpl implements DeleteExpenseEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Expense expense)? addExpense,
     TResult Function(Expense expense)? deleteExpense,
+    TResult Function(Expense expense, int index)? insertExpense,
     required TResult orElse(),
   }) {
     if (deleteExpense != null) {
@@ -458,6 +473,7 @@ class _$DeleteExpenseEventImpl implements DeleteExpenseEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(AddExpenseEvent value) addExpense,
     required TResult Function(DeleteExpenseEvent value) deleteExpense,
+    required TResult Function(InsertExpenseEvent value) insertExpense,
   }) {
     return deleteExpense(this);
   }
@@ -467,6 +483,7 @@ class _$DeleteExpenseEventImpl implements DeleteExpenseEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AddExpenseEvent value)? addExpense,
     TResult? Function(DeleteExpenseEvent value)? deleteExpense,
+    TResult? Function(InsertExpenseEvent value)? insertExpense,
   }) {
     return deleteExpense?.call(this);
   }
@@ -476,6 +493,7 @@ class _$DeleteExpenseEventImpl implements DeleteExpenseEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AddExpenseEvent value)? addExpense,
     TResult Function(DeleteExpenseEvent value)? deleteExpense,
+    TResult Function(InsertExpenseEvent value)? insertExpense,
     required TResult orElse(),
   }) {
     if (deleteExpense != null) {
@@ -494,5 +512,160 @@ abstract class DeleteExpenseEvent implements ExpenseEvent {
   @override
   @JsonKey(ignore: true)
   _$$DeleteExpenseEventImplCopyWith<_$DeleteExpenseEventImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$InsertExpenseEventImplCopyWith<$Res>
+    implements $ExpenseEventCopyWith<$Res> {
+  factory _$$InsertExpenseEventImplCopyWith(_$InsertExpenseEventImpl value,
+          $Res Function(_$InsertExpenseEventImpl) then) =
+      __$$InsertExpenseEventImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({Expense expense, int index});
+}
+
+/// @nodoc
+class __$$InsertExpenseEventImplCopyWithImpl<$Res>
+    extends _$ExpenseEventCopyWithImpl<$Res, _$InsertExpenseEventImpl>
+    implements _$$InsertExpenseEventImplCopyWith<$Res> {
+  __$$InsertExpenseEventImplCopyWithImpl(_$InsertExpenseEventImpl _value,
+      $Res Function(_$InsertExpenseEventImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? expense = null,
+    Object? index = null,
+  }) {
+    return _then(_$InsertExpenseEventImpl(
+      expense: null == expense
+          ? _value.expense
+          : expense // ignore: cast_nullable_to_non_nullable
+              as Expense,
+      index: null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$InsertExpenseEventImpl implements InsertExpenseEvent {
+  const _$InsertExpenseEventImpl({required this.expense, required this.index});
+
+  @override
+  final Expense expense;
+  @override
+  final int index;
+
+  @override
+  String toString() {
+    return 'ExpenseEvent.insertExpense(expense: $expense, index: $index)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$InsertExpenseEventImpl &&
+            (identical(other.expense, expense) || other.expense == expense) &&
+            (identical(other.index, index) || other.index == index));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, expense, index);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$InsertExpenseEventImplCopyWith<_$InsertExpenseEventImpl> get copyWith =>
+      __$$InsertExpenseEventImplCopyWithImpl<_$InsertExpenseEventImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(Expense expense) addExpense,
+    required TResult Function(Expense expense) deleteExpense,
+    required TResult Function(Expense expense, int index) insertExpense,
+  }) {
+    return insertExpense(expense, index);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Expense expense)? addExpense,
+    TResult? Function(Expense expense)? deleteExpense,
+    TResult? Function(Expense expense, int index)? insertExpense,
+  }) {
+    return insertExpense?.call(expense, index);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Expense expense)? addExpense,
+    TResult Function(Expense expense)? deleteExpense,
+    TResult Function(Expense expense, int index)? insertExpense,
+    required TResult orElse(),
+  }) {
+    if (insertExpense != null) {
+      return insertExpense(expense, index);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(AddExpenseEvent value) addExpense,
+    required TResult Function(DeleteExpenseEvent value) deleteExpense,
+    required TResult Function(InsertExpenseEvent value) insertExpense,
+  }) {
+    return insertExpense(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(AddExpenseEvent value)? addExpense,
+    TResult? Function(DeleteExpenseEvent value)? deleteExpense,
+    TResult? Function(InsertExpenseEvent value)? insertExpense,
+  }) {
+    return insertExpense?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(AddExpenseEvent value)? addExpense,
+    TResult Function(DeleteExpenseEvent value)? deleteExpense,
+    TResult Function(InsertExpenseEvent value)? insertExpense,
+    required TResult orElse(),
+  }) {
+    if (insertExpense != null) {
+      return insertExpense(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class InsertExpenseEvent implements ExpenseEvent {
+  const factory InsertExpenseEvent(
+      {required final Expense expense,
+      required final int index}) = _$InsertExpenseEventImpl;
+
+  @override
+  Expense get expense;
+  int get index;
+  @override
+  @JsonKey(ignore: true)
+  _$$InsertExpenseEventImplCopyWith<_$InsertExpenseEventImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
