@@ -37,8 +37,8 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
                 : const Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(child: ExpenseChart()),
-                      Expanded(child: ExpenseList()),
+                      ExpenseChart(),
+                      ExpenseList(),
                     ],
                   ),
           );

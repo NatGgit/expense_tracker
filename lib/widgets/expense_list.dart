@@ -8,28 +8,28 @@ class ExpenseList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ExpenseBloc, ExpenseState>(
-      builder: (context, state) {
-        if (state.expenses.isEmpty) {
-          return const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                Icon(
-                  Icons.info_outline,
-                  color: Colors.deepPurple,
-                  size: 40,
-                ),
-                Text(
-                  'No expenses yet',
-                  style: TextStyle(color: Colors.deepPurple),
-                ),
-              ],
-            ),
-          );
-        }
-        return Expanded(
-          child: ListView.builder(
+    return Expanded(
+      child: BlocBuilder<ExpenseBloc, ExpenseState>(
+        builder: (context, state) {
+          if (state.expenses.isEmpty) {
+            return const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  Icon(
+                    Icons.info_outline,
+                    color: Colors.deepPurple,
+                    size: 40,
+                  ),
+                  Text(
+                    'No expenses yet',
+                    style: TextStyle(color: Colors.deepPurple),
+                  ),
+                ],
+              ),
+            );
+          }
+          return ListView.builder(
             itemCount: state.expenses.length,
             itemBuilder: (_, index) => Dismissible(
               key: UniqueKey(),
@@ -68,9 +68,9 @@ class ExpenseList extends StatelessWidget {
               },
               child: ExpenseCard(expense: state.expenses[index]),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

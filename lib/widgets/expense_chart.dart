@@ -9,32 +9,33 @@ class ExpenseChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ExpenseBloc, ExpenseState>(
-      builder: (context, state) {
-        return Container(
-          margin: const EdgeInsets.all(4),
-          padding: const EdgeInsets.all(8),
-          height: MediaQuery.of(context).size.height / 3,
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            gradient: LinearGradient(
-              colors: [Colors.deepPurple.shade50, Colors.deepPurple.shade600],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
+    return Expanded(
+      child: BlocBuilder<ExpenseBloc, ExpenseState>(
+        builder: (context, state) {
+          return Container(
+            margin: const EdgeInsets.all(4),
+            padding: const EdgeInsets.all(8),
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              gradient: LinearGradient(
+                colors: [Colors.deepPurple.shade50, Colors.deepPurple.shade600],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
             ),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: ExpenseCategory.values
-                .map((e) => ChartBar(
-                      icon: e.icon,
-                      barHeight: _calculateFactor(e, state),
-                    ))
-                .toList(),
-          ),
-        );
-      },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: ExpenseCategory.values
+                  .map((e) => ChartBar(
+                        icon: e.icon,
+                        barHeight: _calculateFactor(e, state),
+                      ))
+                  .toList(),
+            ),
+          );
+        },
+      ),
     );
   }
 
@@ -45,6 +46,9 @@ class ExpenseChart extends StatelessWidget {
     double categorySpendings = 0;
     for (final expense in categoryExpenses) {
       categorySpendings += expense.amount;
+    }
+    if (state.allSpendings == 0) {
+      return 0;
     }
     return categorySpendings / state.allSpendings;
   }
