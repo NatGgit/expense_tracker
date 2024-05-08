@@ -25,24 +25,11 @@ class ExpenseCard extends StatelessWidget {
           style: const TextStyle(color: Colors.white),
         ),
         trailing: Icon(
-          _getIcon(expense.category),
+          expense.category.icon,
           color: Colors.white,
         ),
       ),
     );
-  }
-
-  IconData _getIcon(ExpenseCategory category) {
-    if (category == ExpenseCategory.business) {
-      return Icons.work;
-    } else if (category == ExpenseCategory.food) {
-      return Icons.lunch_dining;
-    } else if (category == ExpenseCategory.leisure) {
-      return Icons.skateboarding;
-    } else if (category == ExpenseCategory.travel) {
-      return Icons.travel_explore;
-    }
-    return Icons.question_mark;
   }
 
   String _getFormattedDate(DateTime date) {

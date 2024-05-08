@@ -8,7 +8,7 @@ class DataRepository {
         category: ExpenseCategory.food,
         date: DateTime.now()),
     Expense(
-      name: 'cimena',
+      name: 'cinema',
       amount: 100,
       category: ExpenseCategory.leisure,
       date: DateTime(2024, 4, 13),

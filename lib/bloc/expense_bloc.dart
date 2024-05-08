@@ -11,27 +11,43 @@ class ExpenseBloc extends Bloc<ExpenseEvent, ExpenseState> {
       final expenses = List<Expense>.from(state.expenses);
       expenses.add(event.expense);
 
-      emit(ExpenseState(expenses: expenses));
+      emit(ExpenseState(
+          expenses: expenses,
+          allSpendings: state.allSpendings + event.expense.amount));
     });
     on<DeleteExpenseEvent>((event, emit) {
       final expenses = List<Expense>.from(state.expenses);
       expenses.remove(event.expense);
 
-      emit(ExpenseState(expenses: expenses));
+      emit(ExpenseState(
+          expenses: expenses,
+          allSpendings: state.allSpendings - event.expense.amount));
     });
     on<InsertExpenseEvent>((event, emit) {
       final expenses = List<Expense>.from(state.expenses);
-      expenses.insert(event.index, event.expense);
+      expenses.insert(
+        event.index,
+        event.expense,
+      );
 
-      emit(ExpenseState(expenses: expenses));
+      emit(ExpenseState(
+          expenses: expenses,
+          allSpendings: state.allSpendings + event.expense.amount));
     });
   }
 }
 
 @freezed
 class ExpenseState with _$ExpenseState {
-  const factory ExpenseState({required List<Expense> expenses}) = _ExpenseState;
-  factory ExpenseState.initial() => ExpenseState(expenses: DataRepository.data);
+  const factory ExpenseState(
+      {required List<Expense> expenses,
+      required double allSpendings}) = _ExpenseState;
+  factory ExpenseState.initial() {
+    double allExpenses = DataRepository.data.fold<double>(
+        0, (previousValue, expense) => previousValue + expense.amount);
+    return ExpenseState(
+        expenses: DataRepository.data, allSpendings: allExpenses);
+  }
 }
 
 @freezed

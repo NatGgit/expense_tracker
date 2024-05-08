@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 const idGenerator = Uuid();
@@ -17,4 +18,12 @@ class Expense {
       : id = idGenerator.v4();
 }
 
-enum ExpenseCategory { business, travel, food, leisure }
+enum ExpenseCategory {
+  business(Icons.work),
+  travel(Icons.travel_explore),
+  food(Icons.lunch_dining),
+  leisure(Icons.skateboarding);
+
+  const ExpenseCategory(this.icon);
+  final IconData icon;
+}

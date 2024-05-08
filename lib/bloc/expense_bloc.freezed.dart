@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$ExpenseState {
   List<Expense> get expenses => throw _privateConstructorUsedError;
+  double get allSpendings => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ExpenseStateCopyWith<ExpenseState> get copyWith =>
@@ -29,7 +30,7 @@ abstract class $ExpenseStateCopyWith<$Res> {
           ExpenseState value, $Res Function(ExpenseState) then) =
       _$ExpenseStateCopyWithImpl<$Res, ExpenseState>;
   @useResult
-  $Res call({List<Expense> expenses});
+  $Res call({List<Expense> expenses, double allSpendings});
 }
 
 /// @nodoc
@@ -46,12 +47,17 @@ class _$ExpenseStateCopyWithImpl<$Res, $Val extends ExpenseState>
   @override
   $Res call({
     Object? expenses = null,
+    Object? allSpendings = null,
   }) {
     return _then(_value.copyWith(
       expenses: null == expenses
           ? _value.expenses
           : expenses // ignore: cast_nullable_to_non_nullable
               as List<Expense>,
+      allSpendings: null == allSpendings
+          ? _value.allSpendings
+          : allSpendings // ignore: cast_nullable_to_non_nullable
+              as double,
     ) as $Val);
   }
 }
@@ -64,7 +70,7 @@ abstract class _$$ExpenseStateImplCopyWith<$Res>
       __$$ExpenseStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Expense> expenses});
+  $Res call({List<Expense> expenses, double allSpendings});
 }
 
 /// @nodoc
@@ -79,12 +85,17 @@ class __$$ExpenseStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? expenses = null,
+    Object? allSpendings = null,
   }) {
     return _then(_$ExpenseStateImpl(
       expenses: null == expenses
           ? _value._expenses
           : expenses // ignore: cast_nullable_to_non_nullable
               as List<Expense>,
+      allSpendings: null == allSpendings
+          ? _value.allSpendings
+          : allSpendings // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -92,7 +103,8 @@ class __$$ExpenseStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ExpenseStateImpl implements _ExpenseState {
-  const _$ExpenseStateImpl({required final List<Expense> expenses})
+  const _$ExpenseStateImpl(
+      {required final List<Expense> expenses, required this.allSpendings})
       : _expenses = expenses;
 
   final List<Expense> _expenses;
@@ -104,8 +116,11 @@ class _$ExpenseStateImpl implements _ExpenseState {
   }
 
   @override
+  final double allSpendings;
+
+  @override
   String toString() {
-    return 'ExpenseState(expenses: $expenses)';
+    return 'ExpenseState(expenses: $expenses, allSpendings: $allSpendings)';
   }
 
   @override
@@ -113,12 +128,14 @@ class _$ExpenseStateImpl implements _ExpenseState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ExpenseStateImpl &&
-            const DeepCollectionEquality().equals(other._expenses, _expenses));
+            const DeepCollectionEquality().equals(other._expenses, _expenses) &&
+            (identical(other.allSpendings, allSpendings) ||
+                other.allSpendings == allSpendings));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_expenses));
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(_expenses), allSpendings);
 
   @JsonKey(ignore: true)
   @override
@@ -128,11 +145,14 @@ class _$ExpenseStateImpl implements _ExpenseState {
 }
 
 abstract class _ExpenseState implements ExpenseState {
-  const factory _ExpenseState({required final List<Expense> expenses}) =
-      _$ExpenseStateImpl;
+  const factory _ExpenseState(
+      {required final List<Expense> expenses,
+      required final double allSpendings}) = _$ExpenseStateImpl;
 
   @override
   List<Expense> get expenses;
+  @override
+  double get allSpendings;
   @override
   @JsonKey(ignore: true)
   _$$ExpenseStateImplCopyWith<_$ExpenseStateImpl> get copyWith =>
