@@ -68,7 +68,6 @@ class ExpenseList extends StatelessWidget {
               },
               child: ExpenseCard(expense: state.expenses[index]),
             ),
-            shrinkWrap: true,
           ),
         );
       },

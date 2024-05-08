@@ -14,155 +14,151 @@ class AddExpenseWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: BlocBuilder<AddExpenseCubit, AddExpenseState>(
-          builder: (context, state) {
-            return Column(
-              children: [
-                const SizedBox(
-                  height: 32,
+    return Padding(
+      padding: const EdgeInsets.all(24.0),
+      child: BlocBuilder<AddExpenseCubit, AddExpenseState>(
+        builder: (context, state) {
+          return Column(
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).viewInsets.top + 16,
+              ),
+              TextFormField(
+                controller: titleController,
+                maxLength: 50,
+                decoration: const InputDecoration(
+                  label: Text('Title'),
                 ),
-                TextFormField(
-                  controller: titleController,
-                  maxLength: 50,
-                  decoration: const InputDecoration(
-                    label: Text('Title'),
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                validator: ValidationHelper.noEmptyValues,
+                onChanged: (value) {
+                  context.read<AddExpenseCubit>().changeTitle(value.trim());
+                },
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      controller: amountController,
+                      keyboardType:
+                          const TextInputType.numberWithOptions(decimal: true),
+                      decoration: const InputDecoration(
+                        label: Text('Amount'),
+                        suffix: Text(' zł'),
+                      ),
+                      validator: ValidationHelper.amountValidation,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      onChanged: (value) {
+                        context
+                            .read<AddExpenseCubit>()
+                            .changeAmount(value.trim());
+                      },
+                    ),
                   ),
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: ValidationHelper.noEmptyValues,
-                  onChanged: (value) {
-                    context.read<AddExpenseCubit>().changeTitle(value.trim());
-                  },
-                ),
-                Row(
+                  Expanded(
+                    child: Row(
+                      children: [
+                        const SizedBox(
+                          width: 24,
+                        ),
+                        Text(state.date != null
+                            ? DateFormat('yyyy-MM-dd').format(state.date!)
+                            : 'Select Date'),
+                        const Spacer(),
+                        IconButton(
+                          onPressed: () async {
+                            final pickedDate = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(DateTime.now().year - 3),
+                              lastDate: DateTime(DateTime.now().year + 1),
+                            );
+                            if (!context.mounted) return;
+
+                            context
+                                .read<AddExpenseCubit>()
+                                .changeDate(pickedDate!);
+                          },
+                          icon: const Icon(Icons.calendar_month),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                child: Row(
                   children: [
                     Expanded(
-                      child: TextFormField(
-                        controller: amountController,
-                        keyboardType: const TextInputType.numberWithOptions(
-                            decimal: true),
-                        decoration: const InputDecoration(
-                          label: Text('Amount'),
-                          suffix: Text(' zł'),
-                        ),
-                        validator: ValidationHelper.amountValidation,
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        onChanged: (value) {
+                      child: DropdownButton(
+                        value: context.read<AddExpenseCubit>().state.category,
+                        hint: const Text('Category'),
+                        isExpanded: true,
+                        items: <DropdownMenuItem<ExpenseCategory>>[
+                          ...ExpenseCategory.values.map(
+                            (category) => DropdownMenuItem(
+                              value: category,
+                              child: Text(category.name.toUpperCase()),
+                            ),
+                          ),
+                        ],
+                        onChanged: (ExpenseCategory? newCategory) {
                           context
                               .read<AddExpenseCubit>()
-                              .changeAmount(value.trim());
+                              .changeCategory(newCategory!);
                         },
                       ),
                     ),
-                    Expanded(
-                      child: Row(
-                        children: [
-                          const SizedBox(
-                            width: 24,
-                          ),
-                          Text(state.date != null
-                              ? DateFormat('yyyy-MM-dd').format(state.date!)
-                              : 'Select Date'),
-                          const Spacer(),
-                          IconButton(
-                            onPressed: () async {
-                              final pickedDate = await showDatePicker(
-                                context: context,
-                                initialDate: DateTime.now(),
-                                firstDate: DateTime(DateTime.now().year - 3),
-                                lastDate: DateTime(DateTime.now().year + 1),
-                              );
-                              if (!context.mounted) return;
-
-                              context
-                                  .read<AddExpenseCubit>()
-                                  .changeDate(pickedDate!);
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: TextButton(
+                            onPressed: () {
+                              context.read<AddExpenseCubit>().resetFormState();
+                              Navigator.pop(context);
                             },
-                            icon: const Icon(Icons.calendar_month),
+                            child: const Text('Cancel'),
                           ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: DropdownButton(
-                          value: context.read<AddExpenseCubit>().state.category,
-                          hint: const Text('Category'),
-                          isExpanded: true,
-                          items: <DropdownMenuItem<ExpenseCategory>>[
-                            ...ExpenseCategory.values.map(
-                              (category) => DropdownMenuItem(
-                                value: category,
-                                child: Text(category.name.toUpperCase()),
-                              ),
-                            ),
-                          ],
-                          onChanged: (ExpenseCategory? newCategory) {
-                            context
-                                .read<AddExpenseCubit>()
-                                .changeCategory(newCategory!);
-                          },
                         ),
-                      ),
-                      Row(
-                        children: [
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 16.0),
-                            child: TextButton(
+                        Opacity(
+                          opacity: context
+                                  .read<AddExpenseCubit>()
+                                  .areFieldsFilledIn()
+                              ? 1
+                              : 0.5,
+                          child: IgnorePointer(
+                            ignoring: !context
+                                .read<AddExpenseCubit>()
+                                .areFieldsFilledIn(),
+                            child: ElevatedButton(
                               onPressed: () {
+                                final newExpense = Expense(
+                                    name: state.title!,
+                                    amount: state.amount!,
+                                    category: state.category!,
+                                    date: state.date!);
+                                context
+                                    .read<ExpenseBloc>()
+                                    .add(AddExpenseEvent(expense: newExpense));
                                 context
                                     .read<AddExpenseCubit>()
                                     .resetFormState();
                                 Navigator.pop(context);
                               },
-                              child: const Text('Cancel'),
+                              child: const Text('Save Expense'),
                             ),
                           ),
-                          Opacity(
-                            opacity: context
-                                    .read<AddExpenseCubit>()
-                                    .areFieldsFilledIn()
-                                ? 1
-                                : 0.5,
-                            child: IgnorePointer(
-                              ignoring: !context
-                                  .read<AddExpenseCubit>()
-                                  .areFieldsFilledIn(),
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  final newExpense = Expense(
-                                      name: state.title!,
-                                      amount: state.amount!,
-                                      category: state.category!,
-                                      date: state.date!);
-                                  context.read<ExpenseBloc>().add(
-                                      AddExpenseEvent(expense: newExpense));
-                                  context
-                                      .read<AddExpenseCubit>()
-                                      .resetFormState();
-                                  Navigator.pop(context);
-                                },
-                                child: const Text('Save Expense'),
-                              ),
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                )
-              ],
-            );
-          },
-        ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              )
+            ],
+          );
+        },
       ),
     );
   }

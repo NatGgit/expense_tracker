@@ -1,4 +1,5 @@
 import 'package:expense_tracker_app/widgets/add_expense_widget.dart';
+import 'package:expense_tracker_app/widgets/expense_chart.dart';
 import 'package:expense_tracker_app/widgets/expense_list.dart';
 import 'package:flutter/material.dart';
 
@@ -22,14 +23,26 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
           )
         ],
       ),
-      body: const Padding(
-        padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
-        child: Column(
-          children: [
-            Placeholder(),
-            ExpenseList(),
-          ],
-        ),
+      body: SafeArea(
+        child: LayoutBuilder(builder: (context, constraints) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
+            child: constraints.maxHeight > constraints.maxWidth
+                ? const Column(
+                    children: [
+                      ExpenseChart(),
+                      ExpenseList(),
+                    ],
+                  )
+                : const Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(child: ExpenseChart()),
+                      Expanded(child: ExpenseList()),
+                    ],
+                  ),
+          );
+        }),
       ),
     );
   }
@@ -37,6 +50,7 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
   void _openExpenseModal() {
     showModalBottomSheet(
         context: context,
+        useSafeArea: true,
         isScrollControlled: true,
         builder: (_) => AddExpenseWidget());
   }
